@@ -1,0 +1,152 @@
+\section{Example Workflow}
+
+\begin{frame}[fragile]{Developer Workflow Example - Part 1a: Capture}
+  \begin{block}{Scenario: Building Authentication Service in Python}
+    \begin{enumerate}
+      \item \textbf{Initialize capture session}
+      \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+$ osp capture --session auth-service \
+  --ai-tool claude-code \
+  --tags "authentication,jwt,fastapi"
+Session started: auth-service-20251009-103000
+Monitoring AI interactions...
+      \end{lstlisting}
+
+      \item \textbf{First prompt iteration}
+      \begin{itemize}
+        \item Prompt: "Implement JWT authentication in Python using FastAPI"
+        \item Captured context:
+          \begin{itemize}
+            \item Current directory structure
+            \item Existing dependencies in requirements.txt
+            \item Python version (3.11)
+          \end{itemize}
+        \item Files generated: \texttt{src/auth.py}, \texttt{tests/test\_auth.py}
+        \item Metadata: AI model version, timestamp, token count
+      \end{itemize}
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Developer Workflow Example - Part 1b: Capture}
+  \begin{block}{Scenario: Building Authentication Service in Python}
+    \begin{enumerate}
+      \setcounter{enumi}{2}
+      \item \textbf{Second prompt iteration}
+      \begin{itemize}
+        \item Prompt: "Add refresh token support with Redis caching"
+        \item Captured context:
+          \begin{itemize}
+            \item Previous prompt (id: 1) as dependency
+            \item Redis configuration in docker-compose.yml
+            \item Security requirement: token rotation
+          \end{itemize}
+        \item Files modified: \texttt{src/auth.py}
+        \item Files generated: \texttt{src/refresh\_tokens.py}, \texttt{src/redis\_client.py}
+      \end{itemize}
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Developer Workflow Example - Part 2a: Commit}
+  \begin{block}{Committing Code with Prompts}
+    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+$ git add src/ tests/ .prompts/
+$ git commit -m "Add JWT authentication with refresh tokens"
+[pre-commit hook: validating .prompts/auth-service.yaml]
+Schema validation: PASS
+All required fields present: PASS
+Git hash linked: a1b2c3d4e5f6
+[main a1b2c3d4] Add JWT authentication with refresh tokens
+ 5 files changed, 342 insertions(+)
+ create mode 100644 .prompts/auth-service.yaml
+ create mode 100644 src/auth.py
+ create mode 100644 src/refresh_tokens.py
+ create mode 100644 src/redis_client.py
+ create mode 100644 tests/test_auth.py
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Developer Workflow Example - Part 2b: Commit}
+  \begin{block}{Generated Prompt File Structure}
+    \begin{itemize}
+      \item \texttt{.prompts/auth-service.yaml} includes:
+        \begin{itemize}
+          \item Complete prompt history (2 iterations)
+          \item All context and dependencies
+          \item File tracking and git linkage
+          \item Validation results (tests passed, coverage 89\%)
+        \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Developer Workflow Example - Part 3: Replay}
+  \begin{block}{Cross-Language Porting to Rust}
+    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+$ osp replay --input .prompts/auth-service.yaml \
+  --target-lang rust --framework actix-web \
+  --output .prompts/auth-service-rust.yaml
+Loading prompt history... 2 prompts found
+Adapting context for Rust environment...
+  Dependencies: fastapi -> actix-web,
+                pyjwt -> jsonwebtoken
+  Async model: asyncio -> tokio
+  Redis client: redis-py -> redis-rs
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Developer Workflow Example - Part 3b: Replay Results}
+  \begin{block}{Execution Results}
+    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+Executing adapted prompt 1...
+  Generated: src/auth.rs, tests/auth_test.rs
+
+Executing adapted prompt 2...
+  Generated: src/refresh_tokens.rs
+  Generated: src/redis_client.rs
+  Modified: src/auth.rs
+
+Validation:
+  Cargo build: SUCCESS
+  Cargo test: 8/8 passed
+  Coverage: 87%
+
+Prompt history saved to:
+  .prompts/auth-service-rust.yaml
+    \end{lstlisting}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Workflow Benefits - Technical Detail (Part 1)}
+  \begin{block}{Reproducibility}
+    \begin{itemize}
+      \item Exact prompt sequence preserved
+      \item Environment context captured (versions, dependencies)
+      \item Validation metrics tracked (tests, coverage)
+      \item Git linkage enables bisecting prompt history
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Cross-Language Adaptation}
+    \begin{itemize}
+      \item Framework mapping: FastAPI $\rightarrow$ Actix-web
+      \item Library translation: pyjwt $\rightarrow$ jsonwebtoken
+      \item Async model adaptation: asyncio $\rightarrow$ tokio
+      \item Maintains architectural intent across languages
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Workflow Benefits - Technical Detail (Part 2)}
+  \begin{block}{Knowledge Sharing}
+    \begin{itemize}
+      \item Searchable by tags: "authentication", "jwt", "fastapi"
+      \item Discoverable by file patterns: "auth*.py"
+      \item Linkable in documentation and PRs
+      \item Reusable for onboarding and training
+    \end{itemize}
+  \end{block}
+\end{frame}

@@ -1,0 +1,73 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+% --- Code styling definitions ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% --- Presentation Theme ---
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+\graphicspath{{./images/}}
+
+% --- Title Information ---
+\title{Open Source Prompt}
+\subtitle{Reproducible AI-Assisted Development}
+\author{Sergio Arroutbi}
+\institute{Security Special Projects}
+\date{October 9, 2025}
+
+\begin{document}
+
+% --- Title Slide ---
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% --- Agenda Slide ---
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+\include{./001-introduction}
+\include{./002-the-problem}
+\include{./003-the-solution}
+\include{./004-how-it-works}
+\include{./005-use-cases}
+\include{./006-benefits}
+\include{./007-similar-initiatives}
+\include{./008-technical-approach}
+\include{./009-example-workflow}
+\include{./010-system-architecture}
+\include{./011-conclusion}
+
+\end{document}
