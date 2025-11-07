@@ -1,0 +1,33 @@
+\section{Example}
+
+\begin{frame}[fragile]{Example: Open Source Prompt File}
+  \begin{block}{Standardized Prompt File Structure}
+    \begin{lstlisting}[basicstyle=\ttfamily\tiny]
+# .prompts/authentication-feature.yaml
+metadata:
+  created: 2025-10-09
+  ai_tool: claude-code
+  repository: github.com/myproject/app
+  commit: a1b2c3d4
+
+prompts:
+  - prompt: "Implement user authentication"
+    files_created: [src/auth.py, tests/test_auth.py]
+
+  - prompt: "Add password reset functionality"
+    context: "Based on previous authentication"
+    files_modified: [src/auth.py]
+    files_created: [src/password_reset.py]
+\end{lstlisting}
+  \end{block}
+
+  \begin{block}{What Gets Captured}
+    \scriptsize
+    \begin{itemize}
+      \item The exact prompts used to generate code
+      \item Context and dependencies for each step
+      \item Which files were created or modified
+      \item Links to the specific code version (git commit)
+    \end{itemize}
+  \end{block}
+\end{frame}
