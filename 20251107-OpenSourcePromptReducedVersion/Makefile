@@ -15,4 +15,7 @@ clobber:
 test:
 	@-true
 
-.PHONY: all $(PROGRAM).pdf clean clobber test
+doc: all clean
+	@-true
+
+.PHONY: all $(PROGRAM).pdf clean clobber test doc

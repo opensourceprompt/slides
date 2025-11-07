@@ -24,3 +24,9 @@ clobber:
 	@for dir in $(SUBDIRS); do \
 		make -C $$dir clobber; \
 	done
+
+.PHONY: clobber
+doc:
+	@for dir in $(SUBDIRS); do \
+		make -C $$dir doc; \
+	done
