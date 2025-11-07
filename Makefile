@@ -1,5 +1,5 @@
 SUBDIRS=20251009-OpenSourcePromptInitiative
-#SUBDIRS+=20251010-GeminiVsClaudeCode
+SUBDIRS+=20251107-OpenSourcePromptReducedVersion
 
 .PHONY: all
 all:
